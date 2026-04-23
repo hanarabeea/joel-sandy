@@ -54,7 +54,7 @@ export default function Home() {
   }
 
   return (
-    <main className="min-h-screen relative overflow-hidden">
+    <main className="min-h-screen relative">
       {/* Video Intro */}
       {!introFinished && (
         <div className="fixed inset-0 z-[9999] bg-black">

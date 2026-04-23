@@ -1,13 +1,12 @@
 "use client"
 
 import { useCallback, useEffect, useRef, useState } from "react"
-import { motion, useScroll, useTransform } from "framer-motion"
 import CountdownTimer from "@/components/countdown-timer"
 import VenueMap from "@/components/venue-map"
 import HandwrittenMessage from "@/components/handwritten-message"
 import LoveStorySection from "@/components/love-story"
 
-import { Variants } from "framer-motion"
+import { Variants, motion } from "framer-motion"
 import { useTranslation } from "@/lib/translations"
 import { useLanguage } from "@/contexts/LanguageContext"
 import { Button } from "@/components/ui/button"
@@ -204,11 +203,6 @@ export default function ProAnimatedEngagementPage({ onImageLoad, introFinished }
   const gifRef = useRef<HTMLImageElement>(null)
   const invitationVideoRef = useRef<HTMLVideoElement>(null)
   const gifTimerRef = useRef<NodeJS.Timeout | null>(null)
-  const { scrollYProgress } = useScroll()
-
-  const pathY1 = useTransform(scrollYProgress, [0, 0.5], [0, 20])
-  const pathY2 = useTransform(scrollYProgress, [0, 0.5], [0, 40])
-
   const eventDate = new Date("2026-05-05T16:00:00");
   const formattedDate = formatDate(eventDate, language);
   const formattedTime = formatTime(eventDate, language);
@@ -364,18 +358,16 @@ export default function ProAnimatedEngagementPage({ onImageLoad, introFinished }
 
         {/* Animated floating background elements */}
         <motion.div
-          className="absolute -left-20 top-1/4 w-64 h-64 bg-accent/5 rounded-full mix-blend-multiply filter blur-3xl"
+          className="absolute -left-20 top-1/4 w-64 h-64 bg-accent/5 rounded-full mix-blend-multiply filter blur-3xl pointer-events-none"
           initial={{ x: -200, opacity: 0 }}
           animate={{ x: 0, opacity: 1 }}
           transition={{ duration: 2, ease: "easeOut", delay: 0.5 }}
-          style={{ y: pathY1 }}
         />
         <motion.div
-          className="absolute -right-20 bottom-1/4 w-72 h-72 bg-accent/5 rounded-full mix-blend-multiply filter blur-3xl"
+          className="absolute -right-20 bottom-1/4 w-72 h-72 bg-accent/5 rounded-full mix-blend-multiply filter blur-3xl pointer-events-none"
           initial={{ x: 200, opacity: 0 }}
           animate={{ x: 0, opacity: 1 }}
           transition={{ duration: 2, ease: "easeOut", delay: 0.7 }}
-          style={{ y: pathY2 }}
         />
       </motion.section>
 

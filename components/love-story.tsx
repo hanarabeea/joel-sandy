@@ -19,15 +19,15 @@ export default function LoveStorySection() {
   const [imgSrc, setImgSrc] = useState("/lovestory.jpg")
 
   const storyEn = [
-    "In a quiet moment in Kathmandu, our story began—a meeting we believe was written by God. What started as a simple encounter soon became something far more meaningful—the one we met on a plane became the love of our lives.",
+    "In a quiet moment in Nepal, our story began—a meeting we believe was written by God. What started as a simple encounter soon became something far more meaningful—the one we met on a plane became the love of our lives.",
     "Through all the ups and downs, the laughter and the trials, His grace carried us and strengthened our love. And in a breathtaking moment beneath the pyramids, a promise for forever was made.",
     "Now, hand in hand, we step into forever, with hearts full of faith, love, and gratitude."
   ]
 
   const storyAr = [
-    "في لحظة هادئة في كاتماندو، بدأت قصتنا—لقاء نؤمن بأن الله قد খُطه لنا. ما بدأ كلقاء بسيط سرعان ما أصبح شيئاً أعمق بكثير—رفيق السفر على متن الطائرة أصبح حب حياتنا.",
-    "عبر كل الصعود والهبوط، الضحكات والتجارب، حملتنا العناية الإلهية وقوت حبنا. وفي لحظة تخطف الأنفاس تحت ظلال الأهرامات، تعاهدنا على البقاء معاً إلى الأبد.",
-    "الآن، يداً بيد، نخطو نحو الأبدية، بقلوب مليئة بالإيمان، والحب، والامتنان."
+    "في لحظة مميزة في نيبال بدأت حكايتنا… مقابلة إحنا مؤمنين إنها كانت مكتوبة من ربنا. اللي بدأت كصدفة بسيطة، اتحوّلت بسرعة لحاجة أكبر بكتير… الشخص اللي قابلناه على الطيارة بقى حب عمرنا.",
+    "عدّينا سوا بحاجات كتير، بين الضحك والتحديات، وكل مرة كنا بنقع فيها، كان فضل ربنا بيرفعنا ويقوّي حبنا أكتر. ولحد اللحظة اللي أخدنا فيها قرارنا تحت الأهرامات بإننا نكمّل سوا العمر كله.",
+    "ودلوقتي، إيد في إيد، بنبدأ رحلتنا سوا… وقلوبنا مليانة إيمان وحب وامتنان"
   ]
 
   const paragraphs = language === 'ar' ? storyAr : storyEn
