@@ -4,7 +4,6 @@ import { useState } from 'react'
 import { motion } from 'framer-motion'
 import { useTranslation } from '@/lib/translations'
 import { useLanguage } from '@/contexts/LanguageContext'
-import { useReveal } from '@/hooks/use-reveal'
 
 export default function RSVPSection() {
   const t = useTranslation()
@@ -15,8 +14,6 @@ export default function RSVPSection() {
   const [guestNames, setGuestNames] = useState<string[]>([''])
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [message, setMessage] = useState({ text: '', type: '' as 'success' | 'error' | 'info' | '' })
-
-  const sectionRef = useReveal()
 
   const handleGuestsChange = (value: string) => {
     setGuests(value)
@@ -81,19 +78,15 @@ export default function RSVPSection() {
 
   return (
     <section
-      ref={sectionRef as any}
       id="rsvp"
       className="relative py-20 px-4 md:py-32 bg-gradient-to-b from-accent/5 via-background to-transparent overflow-hidden"
       style={{ clipPath: 'polygon(0 0%, 100% 3%, 100% 100%, 0% 97%)' }}
     >
-      {/* Static decorative blobs */}
       <div className="absolute top-0 left-0 w-96 h-96 bg-accent/5 rounded-full blur-3xl pointer-events-none" />
       <div className="absolute bottom-0 right-0 w-96 h-96 bg-accent/5 rounded-full blur-3xl pointer-events-none" />
 
       <div className="max-w-3xl mx-auto relative z-10">
-
-        {/* Header */}
-        <div className="text-center mb-12 reveal reveal-up">
+        <div className="text-center mb-12">
           <div className="flex items-center justify-center gap-4 mb-8">
             <div className="w-24 h-px bg-gradient-to-r from-transparent via-accent to-accent" />
             <svg className="w-6 h-6 text-accent" fill="currentColor" viewBox="0 0 24 24">
@@ -105,40 +98,21 @@ export default function RSVPSection() {
           <p className="font-luxury text-lg md:text-xl text-muted-foreground mb-8 italic max-w-2xl mx-auto">{t('rsvpDescription')}</p>
         </div>
 
-        {/* Form card */}
         <div
-          className="reveal reveal-scale reveal-delay-2 relative bg-gradient-to-br from-card/95 via-card/90 to-accent/10 backdrop-blur-sm border-4 border-accent/40 p-8 md:p-12 shadow-2xl"
+          className="relative bg-gradient-to-br from-card/95 via-card/90 to-accent/10 backdrop-blur-sm border-4 border-accent/40 p-8 md:p-12 shadow-2xl"
           style={{ clipPath: 'polygon(8% 0%, 92% 0%, 100% 8%, 100% 92%, 92% 100%, 8% 100%, 0% 92%, 0% 8%)' }}
         >
           {/* Corner hearts */}
-          <div className="absolute -top-3 -left-3 text-accent">
-            <svg className="w-10 h-10" fill="currentColor" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
-          </div>
-          <div className="absolute -top-3 -right-3 text-accent">
-            <svg className="w-10 h-10" fill="currentColor" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
-          </div>
-          <div className="absolute -bottom-3 -left-3 text-accent">
-            <svg className="w-10 h-10" fill="currentColor" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
-          </div>
-          <div className="absolute -bottom-3 -right-3 text-accent">
-            <svg className="w-10 h-10" fill="currentColor" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
-          </div>
+          <div className="absolute -top-3 -left-3 text-accent"><svg className="w-10 h-10" fill="currentColor" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg></div>
+          <div className="absolute -top-3 -right-3 text-accent"><svg className="w-10 h-10" fill="currentColor" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg></div>
+          <div className="absolute -bottom-3 -left-3 text-accent"><svg className="w-10 h-10" fill="currentColor" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg></div>
+          <div className="absolute -bottom-3 -right-3 text-accent"><svg className="w-10 h-10" fill="currentColor" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg></div>
 
           <form onSubmit={handleSubmit} className="relative z-10 space-y-6">
             <div>
-              <label htmlFor="rsvp-name" className="block text-sm font-medium text-foreground mb-2 font-luxury">
-                {t('rsvpFormName')}
-              </label>
-              <input
-                id="rsvp-name"
-                type="text"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-                placeholder={t('rsvpFormName')}
-                className="w-full px-4 py-3 bg-background/50 border-2 border-accent/30 rounded-lg focus:outline-none focus:ring-2 focus:ring-accent/50 focus:border-accent transition-all font-luxury"
-                required
-                disabled={isSubmitting}
-              />
+              <label htmlFor="rsvp-name" className="block text-sm font-medium text-foreground mb-2 font-luxury">{t('rsvpFormName')}</label>
+              <input id="rsvp-name" type="text" value={name} onChange={(e) => setName(e.target.value)} placeholder={t('rsvpFormName')} required disabled={isSubmitting}
+                className="w-full px-4 py-3 bg-background/50 border-2 border-accent/30 rounded-lg focus:outline-none focus:ring-2 focus:ring-accent/50 focus:border-accent transition-all font-luxury" />
             </div>
 
             <div>
@@ -178,8 +152,7 @@ export default function RSVPSection() {
                     {Array.from({ length: parseInt(guests, 10) || 0 }).map((_, index) => (
                       <input key={index} type="text" value={guestNames[index] || ''} onChange={(e) => handleGuestNameChange(index, e.target.value)} disabled={isSubmitting}
                         placeholder={language === 'ar' ? `اسم الضيف ${index + 1}` : `Guest ${index + 1} Name`}
-                        className="w-full px-4 py-3 bg-background/50 border-2 border-accent/30 rounded-lg focus:outline-none focus:ring-2 focus:ring-accent/50 focus:border-accent transition-all font-luxury"
-                      />
+                        className="w-full px-4 py-3 bg-background/50 border-2 border-accent/30 rounded-lg focus:outline-none focus:ring-2 focus:ring-accent/50 focus:border-accent transition-all font-luxury" />
                     ))}
                   </div>
                 </div>

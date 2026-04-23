@@ -3,12 +3,10 @@
 import Image from "next/image"
 import { useLanguage } from "@/contexts/LanguageContext"
 import { useState } from "react"
-import { useReveal } from "@/hooks/use-reveal"
 
 export default function LoveStorySection() {
   const { language, isRTL } = useLanguage()
   const [imgSrc, setImgSrc] = useState("/lovestory.jpg")
-  const sectionRef = useReveal()
 
   const storyEn = [
     "In a quiet moment in Nepal, our story began—a meeting we believe was written by God. What started as a simple encounter soon became something far more meaningful—the one we met on a plane became the love of our lives.",
@@ -25,11 +23,10 @@ export default function LoveStorySection() {
   const paragraphs = language === 'ar' ? storyAr : storyEn
 
   return (
-    <section ref={sectionRef as any} className="relative py-20 px-4 md:py-28 overflow-hidden bg-gradient-to-b from-transparent via-accent/5 to-transparent">
+    <section className="relative py-20 px-4 md:py-28 overflow-hidden bg-gradient-to-b from-transparent via-accent/5 to-transparent">
       <div className="max-w-4xl mx-auto text-center relative z-10">
 
-        {/* Title */}
-        <div className="mb-12 reveal reveal-up">
+        <div className="mb-12">
           <div className="flex items-center justify-center gap-4 mb-4">
             <div className="w-16 h-px bg-accent/30" />
             <span className="text-accent text-2xl">♥</span>
@@ -40,8 +37,7 @@ export default function LoveStorySection() {
           </h2>
         </div>
 
-        {/* Image */}
-        <div className="mb-12 flex justify-center reveal reveal-scale reveal-delay-1">
+        <div className="mb-12 flex justify-center">
           <div className="relative w-full max-w-lg aspect-[5/4] sm:aspect-[4/3] rounded-2xl overflow-hidden shadow-2xl border-4 border-accent/20">
             <Image
               src={imgSrc}
@@ -53,10 +49,9 @@ export default function LoveStorySection() {
           </div>
         </div>
 
-        {/* Story Text */}
         <div className={`space-y-6 md:space-y-8 font-luxury text-xl md:text-2xl lg:text-3xl text-foreground/90 leading-relaxed ${isRTL ? 'rtl' : ''}`}>
           {paragraphs.map((p, i) => (
-            <p key={i} className={`drop-shadow-sm font-medium reveal reveal-up reveal-delay-${i + 2}`}>
+            <p key={i} className="drop-shadow-sm font-medium">
               {p}
               {i === paragraphs.length - 1 && " 💍"}
             </p>
@@ -64,7 +59,6 @@ export default function LoveStorySection() {
         </div>
       </div>
 
-      {/* Static decorative background blobs */}
       <div className="absolute top-1/4 left-0 w-64 h-64 bg-accent/10 rounded-full blur-3xl pointer-events-none" />
       <div className="absolute bottom-1/4 right-0 w-64 h-64 bg-accent/10 rounded-full blur-3xl pointer-events-none" />
     </section>

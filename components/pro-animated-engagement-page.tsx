@@ -1,193 +1,14 @@
 "use client"
 
-import { useCallback, useEffect, useRef, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import CountdownTimer from "@/components/countdown-timer"
 import VenueMap from "@/components/venue-map"
 import HandwrittenMessage from "@/components/handwritten-message"
 import LoveStorySection from "@/components/love-story"
-
-import { Variants, motion } from "framer-motion"
 import { useTranslation } from "@/lib/translations"
 import { useLanguage } from "@/contexts/LanguageContext"
-import { Button } from "@/components/ui/button"
 import PhotoUploadSection from "@/components/photo-upload-section"
 import RSVPSection from "@/components/rsvp-section"
-import { useReveal } from "@/hooks/use-reveal"
-
-// Format date in Arabic or English
-const formatDate = (date: Date, locale: string) => {
-  return date.toLocaleDateString(locale === 'ar' ? 'ar-EG' : 'en-US', {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric',
-  });
-};
-
-// Format time in Arabic or English
-const formatTime = (date: Date, locale: string) => {
-  return date.toLocaleTimeString(locale === 'ar' ? 'ar-EG' : 'en-US', {
-    hour: 'numeric',
-    minute: '2-digit',
-    hour12: true,
-  });
-};
-
-// Professional animation variants
-const fadeIn: Variants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: {
-      duration: 0.8,
-      ease: [0.22, 1, 0.36, 1] as const
-    }
-  }
-}
-
-const slideUp: Variants = {
-  hidden: { y: 40, opacity: 0 },
-  visible: {
-    y: 0,
-    opacity: 1,
-    transition: {
-      duration: 0.8,
-      ease: [0.22, 1, 0.36, 1] as const
-    }
-  }
-}
-
-const scaleIn: Variants = {
-  hidden: { scale: 0.98, opacity: 0 },
-  visible: {
-    scale: 1,
-    opacity: 1,
-    transition: {
-      duration: 0.8,
-      ease: [0.22, 1, 0.36, 1] as const
-    }
-  }
-}
-
-// Professional flying entrance variants
-const slideFromLeft: Variants = {
-  hidden: { x: -120, opacity: 0, scale: 0.9 },
-  visible: {
-    x: 0,
-    opacity: 1,
-    scale: 1,
-    transition: {
-      duration: 1.2,
-      ease: [0.16, 1, 0.3, 1] as const,
-      type: "spring",
-      stiffness: 80,
-      damping: 20
-    }
-  }
-}
-
-const slideFromRight: Variants = {
-  hidden: { x: 120, opacity: 0, scale: 0.9 },
-  visible: {
-    x: 0,
-    opacity: 1,
-    scale: 1,
-    transition: {
-      duration: 1.2,
-      ease: [0.16, 1, 0.3, 1] as const,
-      type: "spring",
-      stiffness: 80,
-      damping: 20
-    }
-  }
-}
-
-// Dramatic fly-in from far left
-const flyFromLeft: Variants = {
-  hidden: { x: -200, opacity: 0, scale: 0.8, rotate: -5 },
-  visible: {
-    x: 0,
-    opacity: 1,
-    scale: 1,
-    rotate: 0,
-    transition: {
-      duration: 1.4,
-      ease: [0.16, 1, 0.3, 1] as const,
-      type: "spring",
-      stiffness: 60,
-      damping: 18
-    }
-  }
-}
-
-// Dramatic fly-in from far right
-const flyFromRight: Variants = {
-  hidden: { x: 200, opacity: 0, scale: 0.8, rotate: 5 },
-  visible: {
-    x: 0,
-    opacity: 1,
-    scale: 1,
-    rotate: 0,
-    transition: {
-      duration: 1.4,
-      ease: [0.16, 1, 0.3, 1] as const,
-      type: "spring",
-      stiffness: 60,
-      damping: 18
-    }
-  }
-}
-
-// Floating entrance from left with bounce
-const floatFromLeft: Variants = {
-  hidden: { x: -150, y: -30, opacity: 0, scale: 0.7 },
-  visible: {
-    x: 0,
-    y: 0,
-    opacity: 1,
-    scale: 1,
-    transition: {
-      duration: 1.5,
-      ease: [0.16, 1, 0.3, 1] as const,
-      type: "spring",
-      stiffness: 70,
-      damping: 15
-    }
-  }
-}
-
-// Floating entrance from right with bounce
-const floatFromRight: Variants = {
-  hidden: { x: 150, y: -30, opacity: 0, scale: 0.7 },
-  visible: {
-    x: 0,
-    y: 0,
-    opacity: 1,
-    scale: 1,
-    transition: {
-      duration: 1.5,
-      ease: [0.16, 1, 0.3, 1] as const,
-      type: "spring",
-      stiffness: 70,
-      damping: 15
-    }
-  }
-}
-
-const staggerContainer: Variants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: { staggerChildren: 0.2, delayChildren: 0.1 }
-  }
-}
-
-const fastStaggerContainer: Variants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: { staggerChildren: 0.15, delayChildren: 0.05 }
-  }
-}
 
 interface ProAnimatedEngagementPageProps {
   onImageLoad?: () => void;
@@ -198,84 +19,22 @@ export default function ProAnimatedEngagementPage({ onImageLoad, introFinished }
   const t = useTranslation()
   const { language } = useLanguage()
   const [mounted, setMounted] = useState(false)
-  const [imageLoaded, setImageLoaded] = useState(false)
-  const [gifHasPlayed, setGifHasPlayed] = useState(false)
-  const [gifPreloaded, setGifPreloaded] = useState(false)
-  const gifRef = useRef<HTMLImageElement>(null)
-  const venueRef = useReveal()
   const invitationVideoRef = useRef<HTMLVideoElement>(null)
-  const gifTimerRef = useRef<NodeJS.Timeout | null>(null)
-  const eventDate = new Date("2026-05-05T16:00:00");
-  const formattedDate = formatDate(eventDate, language);
-  const formattedTime = formatTime(eventDate, language);
 
   useEffect(() => {
-    setMounted(true);
-
-    if (typeof window !== 'undefined') {
-      const staticImg = new window.Image();
-      staticImg.src = "/invitation-design.png";
-      staticImg.onload = () => {
-        console.log('✅ Image preloaded and cached');
-        setGifPreloaded(true);
-      };
-      staticImg.onerror = () => {
-        console.log('⚠️ Image preload failed');
-      };
-    }
-
-    // Cleanup timer on unmount
-    return () => {
-      if (gifTimerRef.current) {
-        clearTimeout(gifTimerRef.current);
-      }
-    };
-  }, []);
+    setMounted(true)
+  }, [])
 
   useEffect(() => {
-    if (introFinished) {
-      console.log('🎬 Intro finished, showing image');
-      setGifHasPlayed(true);
-    }
-  }, [introFinished]);
-
-  useEffect(() => {
-    if (!introFinished) return;
-
-    const video = invitationVideoRef.current;
-    if (!video) return;
-
+    if (!introFinished) return
+    const video = invitationVideoRef.current
+    if (!video) return
     try {
-      video.currentTime = 0;
-      video.load();
-      const playPromise = video.play();
-      playPromise?.catch(() => {});
-    } catch {
-    }
-  }, [introFinished]);
-
-  useEffect(() => {
-    if (!introFinished) return;
-    if (imageLoaded) return;
-
-    const timer = setTimeout(() => {
-      // Removed the video loader
-    }, 300)
-
-    return () => {
-      clearTimeout(timer)
-    }
-  }, [introFinished, imageLoaded])
-
-  const handleImageLoad = () => {
-    setImageLoaded(true)
-    onImageLoad?.()
-  }
-
-  const handleGifError = () => {
-    console.log('❌ Image error');
-    setGifHasPlayed(true);
-  }
+      video.currentTime = 0
+      video.load()
+      video.play().catch(() => {})
+    } catch {}
+  }, [introFinished])
 
   if (!mounted) {
     return (
@@ -286,20 +45,13 @@ export default function ProAnimatedEngagementPage({ onImageLoad, introFinished }
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-background via-background to-secondary/20 overflow-x-hidden pt-0">
-      {/* Hero Section */}
-      <motion.section
-        className="relative w-full overflow-hidden pt-0"
-        initial="hidden"
-        animate="visible"
-        variants={fastStaggerContainer}
-      >
-        <motion.div
-          className="relative w-full z-10 pt-0"
-          variants={scaleIn}
-        >
+    <div className="min-h-screen bg-gradient-to-b from-background via-background to-secondary/20 overflow-x-hidden">
+
+      {/* Hero Video */}
+      <section className="relative w-full overflow-hidden">
+        <div className="relative w-full z-10">
           {introFinished && (
-            <div className="video-container-fix" style={{ height: '100dvh', width: '100vw', position: 'relative', backgroundColor: 'black', overflow: 'hidden' }}>
+            <div style={{ height: '100dvh', width: '100vw', position: 'relative', backgroundColor: 'black', overflow: 'hidden' }}>
               <video
                 key="invitation-video"
                 ref={invitationVideoRef}
@@ -309,71 +61,30 @@ export default function ProAnimatedEngagementPage({ onImageLoad, introFinished }
                 muted
                 playsInline
                 preload="auto"
-                onLoadedData={handleImageLoad}
+                onLoadedData={onImageLoad}
                 poster="/invitation-design.png?v=2"
               />
             </div>
           )}
-        </motion.div>
-
-        <div className="mt-6 w-full max-w-2xl mx-auto text-center px-4">
         </div>
 
-        {/* Minimal Scroll Down Indicator - Center bottom */}
-        <motion.button
+        {/* Scroll indicator */}
+        <button
           onClick={() => {
-            const countdownSection = document.querySelector('section[class*="pt-0"]') || document.querySelector('section[style*="countdown-bg.jpg"]');
-            countdownSection?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            document.querySelector('#countdown')?.scrollIntoView({ behavior: 'smooth', block: 'start' })
           }}
-          className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 z-20 cursor-pointer group"
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 2, duration: 1 }}
+          className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 z-20 cursor-pointer"
         >
           <span className="text-[11px] uppercase tracking-[0.3em] text-white font-bold drop-shadow-md mb-1">
             {language === 'ar' ? 'اسحب لأسفل' : 'Scroll'}
           </span>
-          <motion.div
-            animate={{ y: [0, 5, 0] }}
-            transition={{
-              duration: 2,
-              repeat: Infinity,
-              ease: "easeInOut"
-            }}
-            className="text-white drop-shadow-md group-hover:scale-110 transition-transform"
-          >
-            <svg
-              className="w-5 h-5"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-              strokeWidth={2.5}
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M19.5 8.25l-7.5 7.5-7.5-7.5"
-              />
-            </svg>
-          </motion.div>
-        </motion.button>
+          <svg className="w-5 h-5 text-white drop-shadow-md" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2.5}>
+            <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
+          </svg>
+        </button>
+      </section>
 
-        {/* Animated floating background elements */}
-        <motion.div
-          className="absolute -left-20 top-1/4 w-64 h-64 bg-accent/5 rounded-full mix-blend-multiply filter blur-3xl pointer-events-none"
-          initial={{ x: -200, opacity: 0 }}
-          animate={{ x: 0, opacity: 1 }}
-          transition={{ duration: 2, ease: "easeOut", delay: 0.5 }}
-        />
-        <motion.div
-          className="absolute -right-20 bottom-1/4 w-72 h-72 bg-accent/5 rounded-full mix-blend-multiply filter blur-3xl pointer-events-none"
-          initial={{ x: 200, opacity: 0 }}
-          animate={{ x: 0, opacity: 1 }}
-          transition={{ duration: 2, ease: "easeOut", delay: 0.7 }}
-        />
-      </motion.section>
-
-      {/* Decorative Star Section */}
+      {/* Decorative divider */}
       <div className="relative pt-12 px-4 md:pt-16 pb-8 md:pb-12">
         <div className="flex items-center justify-center gap-4">
           <div className="w-24 h-px bg-gradient-to-r from-transparent via-accent to-transparent" />
@@ -384,30 +95,24 @@ export default function ProAnimatedEngagementPage({ onImageLoad, introFinished }
         </div>
       </div>
 
+      {/* Quote */}
       <section className="relative px-4 pb-10 md:pb-14">
-        <div className="max-w-4xl mx-auto">
-          <div className="text-center">
-            <p className="font-heading text-2xl sm:text-3xl md:text-5xl text-foreground italic leading-relaxed whitespace-nowrap">
-              You are my today and all of my tomorrows.
-            </p>
-            <div className="mt-6 flex items-center justify-center gap-4">
-              <div className="w-16 h-px bg-accent/30" />
-              <span className="text-accent">♥</span>
-              <div className="w-16 h-px bg-accent/30" />
-            </div>
+        <div className="max-w-4xl mx-auto text-center">
+          <p className="font-heading text-2xl sm:text-3xl md:text-5xl text-foreground italic leading-relaxed whitespace-nowrap">
+            You are my today and all of my tomorrows.
+          </p>
+          <div className="mt-6 flex items-center justify-center gap-4">
+            <div className="w-16 h-px bg-accent/30" />
+            <span className="text-accent">♥</span>
+            <div className="w-16 h-px bg-accent/30" />
           </div>
         </div>
       </section>
 
-
-      {/* Countdown Section */}
-      <section
-        className="relative pt-0 pb-8 px-4 md:pt-0 md:pb-12 overflow-hidden"
-      >
-        {/* Decorative Elements */}
-        <div className="absolute top-0 left-0 w-96 h-96 bg-accent/5 rounded-full blur-3xl z-0" />
-        <div className="absolute bottom-0 right-0 w-96 h-96 bg-accent/5 rounded-full blur-3xl z-0" />
-
+      {/* Countdown */}
+      <section id="countdown" className="relative pt-0 pb-8 px-4 md:pb-12 overflow-hidden">
+        <div className="absolute top-0 left-0 w-96 h-96 bg-accent/5 rounded-full blur-3xl z-0 pointer-events-none" />
+        <div className="absolute bottom-0 right-0 w-96 h-96 bg-accent/5 rounded-full blur-3xl z-0 pointer-events-none" />
         <div className="relative max-w-6xl mx-auto text-center z-10">
           <div className="inline-flex flex-col items-center mb-16">
             <h2 className="font-heading font-luxury text-5xl md:text-6xl lg:text-7xl text-foreground leading-tight mb-6 tracking-wide">
@@ -417,21 +122,14 @@ export default function ProAnimatedEngagementPage({ onImageLoad, introFinished }
               {t('countingMoments')}
             </p>
           </div>
-
-          <div>
-            <CountdownTimer targetDate={new Date("2026-05-05T16:00:00")} />
-          </div>
+          <CountdownTimer targetDate={new Date("2026-05-05T16:00:00")} />
         </div>
       </section>
 
       {/* Venue Section */}
-      <section
-        ref={venueRef as any}
-        className="relative py-20 px-4 md:py-32 bg-gradient-to-b from-transparent via-accent/5 to-transparent"
-        style={{ clipPath: 'polygon(0 0%, 100% 5%, 100% 100%, 0% 95%)' }}
-      >
+      <section className="relative py-20 px-4 md:py-32 bg-gradient-to-b from-transparent via-accent/5 to-transparent" style={{ clipPath: 'polygon(0 0%, 100% 5%, 100% 100%, 0% 95%)' }}>
         <div className="max-w-6xl mx-auto">
-          <div className="text-center mb-20 reveal reveal-up">
+          <div className="text-center mb-20">
             <div className="flex items-center justify-center gap-4 mb-8">
               <div className="w-32 h-px bg-gradient-to-r from-transparent via-accent to-transparent" />
               <div className="w-3 h-3 rotate-45 bg-accent" />
@@ -442,9 +140,9 @@ export default function ProAnimatedEngagementPage({ onImageLoad, introFinished }
             </h2>
           </div>
 
-          <div className="max-w-6xl mx-auto flex flex-col lg:flex-row gap-8">
+          <div className="flex flex-col lg:flex-row gap-8">
             {/* Church */}
-            <div className="flex-1 relative bg-gradient-to-br from-card/95 via-card/90 to-accent/10 backdrop-blur-sm border-4 border-accent/40 p-4 shadow-2xl mb-8 reveal reveal-left reveal-delay-1">
+            <div className="flex-1 relative bg-gradient-to-br from-card/95 via-card/90 to-accent/10 backdrop-blur-sm border-4 border-accent/40 p-4 shadow-2xl mb-8">
               <div className="relative z-10 text-center">
                 <div className="flex justify-center mb-4">
                   <svg className="w-12 h-12 text-accent mt-4" fill="currentColor" viewBox="0 0 24 24">
@@ -466,7 +164,7 @@ export default function ProAnimatedEngagementPage({ onImageLoad, introFinished }
             </div>
 
             {/* Reception */}
-            <div className="flex-1 relative bg-gradient-to-br from-card/95 via-card/90 to-accent/10 backdrop-blur-sm border-4 border-accent/40 p-4 shadow-2xl mb-8 reveal reveal-right reveal-delay-2">
+            <div className="flex-1 relative bg-gradient-to-br from-card/95 via-card/90 to-accent/10 backdrop-blur-sm border-4 border-accent/40 p-4 shadow-2xl mb-8">
               <div className="relative z-10 text-center">
                 <div className="flex justify-center mb-4">
                   <svg className="w-12 h-12 text-accent mt-4" fill="currentColor" viewBox="0 0 24 24">
@@ -490,16 +188,16 @@ export default function ProAnimatedEngagementPage({ onImageLoad, introFinished }
         </div>
       </section>
 
-      {/* Love Story Section */}
+      {/* Love Story */}
       <LoveStorySection />
 
-      {/* Message Section */}
+      {/* Message */}
       <HandwrittenMessage />
 
-      {/* RSVP Section */}
+      {/* RSVP */}
       <RSVPSection />
 
-      {/* Photo Upload Section */}
+      {/* Photo Upload */}
       <PhotoUploadSection />
 
       {/* Footer */}
