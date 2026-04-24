@@ -48,15 +48,33 @@ export default function ProAnimatedEngagementPage({ onImageLoad, introFinished }
     <div className="min-h-screen bg-gradient-to-b from-background via-background to-secondary/20 overflow-x-hidden">
 
       {/* Hero Video — no reveal, it's above the fold */}
-      <section className="relative w-full overflow-hidden">
+      <section className="relative w-full" style={{ touchAction: 'pan-y' }}>
         <div className="relative w-full z-10">
           {introFinished && (
-            <div style={{ height: '100dvh', width: '100vw', position: 'relative', backgroundColor: 'black', overflow: 'hidden' }}>
+            <div
+              style={{
+                height: '100vh',
+                width: '100vw',
+                position: 'relative',
+                backgroundColor: 'black',
+                overflow: 'hidden',
+                touchAction: 'pan-y',
+              }}
+            >
               <video
                 key="invitation-video"
                 ref={invitationVideoRef}
                 src="/invitation-design.mp4"
-                style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'top' }}
+                style={{
+                  position: 'absolute',
+                  top: 0,
+                  left: 0,
+                  width: '100%',
+                  height: '100%',
+                  objectFit: 'cover',
+                  objectPosition: 'top',
+                  pointerEvents: 'none',
+                }}
                 autoPlay
                 muted
                 playsInline
