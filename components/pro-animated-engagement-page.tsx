@@ -47,7 +47,7 @@ export default function ProAnimatedEngagementPage({ onImageLoad, introFinished }
   return (
     <div className="min-h-screen bg-gradient-to-b from-background via-background to-secondary/20 overflow-x-hidden">
 
-      {/* Hero Video */}
+      {/* Hero Video — no reveal, it's above the fold */}
       <section className="relative w-full overflow-hidden">
         <div className="relative w-full z-10">
           {introFinished && (
@@ -85,7 +85,7 @@ export default function ProAnimatedEngagementPage({ onImageLoad, introFinished }
       </section>
 
       {/* Decorative divider */}
-      <div className="relative pt-12 px-4 md:pt-16 pb-8 md:pb-12">
+      <div className="relative pt-12 px-4 md:pt-16 pb-8 md:pb-12 reveal">
         <div className="flex items-center justify-center gap-4">
           <div className="w-24 h-px bg-gradient-to-r from-transparent via-accent to-transparent" />
           <svg className="w-6 h-6 text-accent" fill="currentColor" viewBox="0 0 24 24">
@@ -96,7 +96,7 @@ export default function ProAnimatedEngagementPage({ onImageLoad, introFinished }
       </div>
 
       {/* Quote */}
-      <section className="relative px-4 pb-10 md:pb-14">
+      <section className="relative px-4 pb-10 md:pb-14 reveal">
         <div className="max-w-4xl mx-auto text-center">
           <p className="font-heading text-2xl sm:text-3xl md:text-5xl text-foreground italic leading-relaxed whitespace-nowrap">
             You are my today and all of my tomorrows.
@@ -110,7 +110,7 @@ export default function ProAnimatedEngagementPage({ onImageLoad, introFinished }
       </section>
 
       {/* Countdown */}
-      <section id="countdown" className="relative pt-0 pb-8 px-4 md:pb-12 overflow-hidden">
+      <section id="countdown" className="relative pt-0 pb-8 px-4 md:pb-12 overflow-hidden reveal">
         <div className="absolute top-0 left-0 w-96 h-96 bg-accent/5 rounded-full blur-3xl z-0 pointer-events-none" />
         <div className="absolute bottom-0 right-0 w-96 h-96 bg-accent/5 rounded-full blur-3xl z-0 pointer-events-none" />
         <div className="relative max-w-6xl mx-auto text-center z-10">
@@ -129,7 +129,7 @@ export default function ProAnimatedEngagementPage({ onImageLoad, introFinished }
       {/* Venue Section */}
       <section className="relative py-20 px-4 md:py-32 bg-gradient-to-b from-transparent via-accent/5 to-transparent" style={{ clipPath: 'polygon(0 0%, 100% 5%, 100% 100%, 0% 95%)' }}>
         <div className="max-w-6xl mx-auto">
-          <div className="text-center mb-20">
+          <div className="text-center mb-20 reveal">
             <div className="flex items-center justify-center gap-4 mb-8">
               <div className="w-32 h-px bg-gradient-to-r from-transparent via-accent to-transparent" />
               <div className="w-3 h-3 rotate-45 bg-accent" />
@@ -142,7 +142,7 @@ export default function ProAnimatedEngagementPage({ onImageLoad, introFinished }
 
           <div className="flex flex-col lg:flex-row gap-8">
             {/* Church */}
-            <div className="flex-1 relative bg-gradient-to-br from-card/95 via-card/90 to-accent/10 backdrop-blur-sm border-4 border-accent/40 p-4 shadow-2xl mb-8">
+            <div className="flex-1 relative bg-gradient-to-br from-card/95 via-card/90 to-accent/10 backdrop-blur-sm border-4 border-accent/40 p-4 shadow-2xl mb-8 reveal-left">
               <div className="relative z-10 text-center">
                 <div className="flex justify-center mb-4">
                   <svg className="w-12 h-12 text-accent mt-4" fill="currentColor" viewBox="0 0 24 24">
@@ -164,7 +164,7 @@ export default function ProAnimatedEngagementPage({ onImageLoad, introFinished }
             </div>
 
             {/* Reception */}
-            <div className="flex-1 relative bg-gradient-to-br from-card/95 via-card/90 to-accent/10 backdrop-blur-sm border-4 border-accent/40 p-4 shadow-2xl mb-8">
+            <div className="flex-1 relative bg-gradient-to-br from-card/95 via-card/90 to-accent/10 backdrop-blur-sm border-4 border-accent/40 p-4 shadow-2xl mb-8 reveal-right delay-200">
               <div className="relative z-10 text-center">
                 <div className="flex justify-center mb-4">
                   <svg className="w-12 h-12 text-accent mt-4" fill="currentColor" viewBox="0 0 24 24">
@@ -201,7 +201,7 @@ export default function ProAnimatedEngagementPage({ onImageLoad, introFinished }
       <PhotoUploadSection />
 
       {/* Footer */}
-      <footer className="relative py-24 text-center bg-gradient-to-t from-accent/10 to-transparent">
+      <footer className="relative py-24 text-center bg-gradient-to-t from-accent/10 to-transparent reveal">
         <div className="max-w-3xl mx-auto px-4">
           <p className="font-heading text-4xl md:text-6xl text-foreground mb-10 italic leading-relaxed">
             {t('footerMessage')}

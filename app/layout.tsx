@@ -9,6 +9,7 @@ import { RomanticAudio } from "@/components/romantic-audio"
 import { LanguageProvider } from "@/contexts/LanguageContext"
 import { LanguageToggle } from "@/components/language-toggle"
 import { Footer } from "@/components/footer"
+import { ScrollReveal } from "@/components/scroll-reveal"
 import "./globals.css"
 
 const playfair = Playfair_Display({
@@ -132,6 +133,7 @@ export default function RootLayout({
       <body className={`font-sans ${GeistSans.variable} ${GeistMono.variable} ${playfair.variable} ${greatVibes.variable}`}>
         <LanguageProvider>
           <Suspense fallback={null}>
+            <ScrollReveal />
             <LanguageToggle />
             {children}
             <RomanticAudio />

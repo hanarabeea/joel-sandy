@@ -26,7 +26,7 @@ export default function LoveStorySection() {
     <section className="relative py-20 px-4 md:py-28 overflow-hidden bg-gradient-to-b from-transparent via-accent/5 to-transparent">
       <div className="max-w-4xl mx-auto text-center relative z-10">
 
-        <div className="mb-12">
+        <div className="mb-12 reveal">
           <div className="flex items-center justify-center gap-4 mb-4">
             <div className="w-16 h-px bg-accent/30" />
             <span className="text-accent text-2xl">♥</span>
@@ -37,7 +37,7 @@ export default function LoveStorySection() {
           </h2>
         </div>
 
-        <div className="mb-12 flex justify-center">
+        <div className="mb-12 flex justify-center reveal-scale delay-100">
           <div className="relative w-full max-w-lg aspect-[5/4] sm:aspect-[4/3] rounded-2xl overflow-hidden shadow-2xl border-4 border-accent/20">
             <Image
               src={imgSrc}
@@ -50,12 +50,15 @@ export default function LoveStorySection() {
         </div>
 
         <div className={`space-y-6 md:space-y-8 font-luxury text-xl md:text-2xl lg:text-3xl text-foreground/90 leading-relaxed ${isRTL ? 'rtl' : ''}`}>
-          {paragraphs.map((p, i) => (
-            <p key={i} className="drop-shadow-sm font-medium">
-              {p}
-              {i === paragraphs.length - 1 && " 💍"}
-            </p>
-          ))}
+          {paragraphs.map((p, i) => {
+            const delay = i === 0 ? 'delay-100' : i === 1 ? 'delay-200' : 'delay-300'
+            return (
+              <p key={i} className={`drop-shadow-sm font-medium reveal ${delay}`}>
+                {p}
+                {i === paragraphs.length - 1 && " 💍"}
+              </p>
+            )
+          })}
         </div>
       </div>
 

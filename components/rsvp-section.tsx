@@ -86,7 +86,7 @@ export default function RSVPSection() {
       <div className="absolute bottom-0 right-0 w-96 h-96 bg-accent/5 rounded-full blur-3xl pointer-events-none" />
 
       <div className="max-w-3xl mx-auto relative z-10">
-        <div className="text-center mb-12">
+        <div className="text-center mb-12 reveal">
           <div className="flex items-center justify-center gap-4 mb-8">
             <div className="w-24 h-px bg-gradient-to-r from-transparent via-accent to-accent" />
             <svg className="w-6 h-6 text-accent" fill="currentColor" viewBox="0 0 24 24">
@@ -99,7 +99,7 @@ export default function RSVPSection() {
         </div>
 
         <div
-          className="relative bg-gradient-to-br from-card/95 via-card/90 to-accent/10 backdrop-blur-sm border-4 border-accent/40 p-8 md:p-12 shadow-2xl"
+          className="reveal-scale delay-200 relative bg-gradient-to-br from-card/95 via-card/90 to-accent/10 backdrop-blur-sm border-4 border-accent/40 p-8 md:p-12 shadow-2xl"
           style={{ clipPath: 'polygon(8% 0%, 92% 0%, 100% 8%, 100% 92%, 92% 100%, 8% 100%, 0% 92%, 0% 8%)' }}
         >
           {/* Corner hearts */}
