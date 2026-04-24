@@ -90,7 +90,7 @@ export default function ProAnimatedEngagementPage({ onImageLoad, introFinished }
           onClick={() => {
             document.querySelector('#countdown')?.scrollIntoView({ behavior: 'smooth', block: 'start' })
           }}
-          className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 z-20 cursor-pointer pointer-events-auto"
+          className="absolute bottom-4 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 z-20 cursor-pointer pointer-events-auto"
         >
           <span className="text-[11px] uppercase tracking-[0.3em] text-white font-bold drop-shadow-md mb-1">
             {language === 'ar' ? 'اسحب لأسفل' : 'Scroll'}
