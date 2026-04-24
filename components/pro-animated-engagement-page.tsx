@@ -45,20 +45,19 @@ export default function ProAnimatedEngagementPage({ onImageLoad, introFinished }
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-background via-background to-secondary/20 overflow-x-hidden">
+    <div className="min-h-screen bg-gradient-to-b from-background via-background to-secondary/20">
 
       {/* Hero Video — no reveal, it's above the fold */}
-      <section className="relative w-full" style={{ touchAction: 'pan-y' }}>
+      <section className="relative w-full pointer-events-none">
         <div className="relative w-full z-10">
           {introFinished && (
             <div
               style={{
                 height: '100vh',
-                width: '100vw',
+                width: '100%',
                 position: 'relative',
                 backgroundColor: 'black',
                 overflow: 'hidden',
-                touchAction: 'pan-y',
               }}
             >
               <video
@@ -86,12 +85,12 @@ export default function ProAnimatedEngagementPage({ onImageLoad, introFinished }
           )}
         </div>
 
-        {/* Scroll indicator */}
+        {/* Scroll indicator - must have pointer events to be clickable */}
         <button
           onClick={() => {
             document.querySelector('#countdown')?.scrollIntoView({ behavior: 'smooth', block: 'start' })
           }}
-          className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 z-20 cursor-pointer"
+          className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 z-20 cursor-pointer pointer-events-auto"
         >
           <span className="text-[11px] uppercase tracking-[0.3em] text-white font-bold drop-shadow-md mb-1">
             {language === 'ar' ? 'اسحب لأسفل' : 'Scroll'}
