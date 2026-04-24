@@ -38,9 +38,9 @@ export const metadata: Metadata = {
     description: "Join us in celebrating Joel & Sandy's wedding",
     images: [
       {
-        url: "https://joel-sandy.digitivaa.com/invitation-design.png",
-        alt: "Joel & Sandy Wedding Invitation",
-        type: "image/png",
+        url: "https://joel-sandy.digitivaa.com/lovestory.jpg",
+        alt: "Joel & Sandy Wedding",
+        type: "image/jpeg",
       },
     ],
     locale: "en_US",
@@ -49,7 +49,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Joel & Sandy - Wedding Celebration",
     description: "Join us in celebrating Joel & Sandy's wedding",
-    images: ["https://joel-sandy.digitivaa.com/invitation-design.png"],
+    images: ["https://joel-sandy.digitivaa.com/lovestory.jpg"],
   },
   icons: {
     icon: "/invitation-design.png",
