@@ -39,8 +39,6 @@ export const metadata: Metadata = {
     images: [
       {
         url: "https://joel-sandy.digitivaa.com/invitation-design.png",
-        width: 1200,
-        height: 630,
         alt: "Joel & Sandy Wedding Invitation",
         type: "image/png",
       },
