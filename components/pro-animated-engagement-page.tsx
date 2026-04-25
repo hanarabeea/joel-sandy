@@ -202,6 +202,25 @@ export default function ProAnimatedEngagementPage({ onImageLoad, introFinished }
               </div>
             </div>
           </div>
+
+          {/* Children Note */}
+          <div className="mt-12 max-w-3xl mx-auto text-center reveal-scale delay-300">
+            <div className="relative bg-gradient-to-br from-card/95 via-card/90 to-accent/10 backdrop-blur-sm border-2 border-accent/40 rounded-2xl p-6 md:p-8 shadow-xl">
+              <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-background px-4 py-1 rounded-full border border-accent/30 shadow-sm flex items-center justify-center">
+                <svg className="w-5 h-5 text-accent" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z" />
+                </svg>
+              </div>
+              <h4 className="font-heading text-2xl md:text-3xl text-foreground mt-4 mb-3 tracking-wide">
+                {language === 'ar' ? 'ملاحظة هامة' : 'Important Note'}
+              </h4>
+              <p className="font-luxury text-lg md:text-xl text-foreground font-medium leading-relaxed">
+                {language === 'ar' 
+                  ? 'برجاء التكرم بعدم اصطحاب الأطفال أقل من ٧ سنوات، شاكرين تفهمكم' 
+                  : 'Kindly note that children under the age of 7 are not permitted in the wedding. Thank you for your understanding.'}
+              </p>
+            </div>
+          </div>
         </div>
       </section>
 
